@@ -1,0 +1,53 @@
+body {
+    background-color: #000000;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    perspective: 1500px;
+    transform-style: preserve-3d;
+}
+
+div {
+    position:absolute;
+    bottom: calc(50vh - 150px);
+    box-sizing: border-box;
+    width: 200px;
+    height:300px;
+    border-radius: 30px;
+    border: 2px solid white;
+    box-shadow: 0 2px 9px 3px #000fff;
+    cursor: pointer;
+    transform: rotateX(75deg);
+    transform-origin: center bottom;
+    transition: transform .6s linear;
+}
+div:hover {
+    transform: none;
+}
+
+.card-0 {
+    left: calc(50vw - 100px - 500px);
+    background-image: linear-gradient(to right top, olive, yellow, yellowgreen);
+}
+
+.card-1 {
+    left: calc(50vw - 100px - 250px);
+    background-image: linear-gradient(to right top, blue, skyblue, blue);
+}
+
+.card-2 {
+    left: calc(50vw - 100px);
+    background-image: linear-gradient(to right top, green, lime, green);
+}
+
+.card-3 {
+    left: calc(50vw - 100px + 250px);
+    background-image: linear-gradient(to right top, purple, pink, purple);
+}
+
+.card-4 {
+    left: calc(50vw - 100px + 500px);
+    background-image: linear-gradient(to right top, firebrick, red, maroon);
+}

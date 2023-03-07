@@ -1,0 +1,130 @@
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("../src/fonts/Roboto-Bold.ttf") format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("../src/fonts/Roboto-Regular.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    font-family: "Roboto-Regular", Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    /**/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                not supported by any browser */
+}
+
+header {
+    height: 120px;
+    background-color: #0a3c52;
+    line-height: 120px;
+    box-shadow: 0px 0px 12px 3px #000000;
+}
+
+.bg-image {
+    background-image: url(../src/images/bg.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+h1 {
+    margin: 0;
+    font-family: "Roboto-Bold";
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+}
+
+div {
+    margin: 20px;
+    text-align: center;
+    min-height: calc(100vh - (120px + 60px));
+}
+nav{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: #0a3c52;
+    max-width: 320px;
+    vertical-align: top;
+    text-align: left;
+    box-shadow: 0px 0px 12px 3px #000000;
+}
+a {
+    display: block;
+    margin: 20px;
+    font-size: 18px;
+    color: #ffffff;
+}
+a:hover {
+    color: #00aaff;
+    text-shadow: 2px 2px 3px #000000;
+}
+
+main{
+    display: inline-block;
+    box-sizing: border-box;
+    max-width: 680px;
+    margin-left: 30px;
+    vertical-align: top;
+    text-align: left;
+}
+
+h2 {
+    font-family: "Roboto-Bold";
+    font-size: 40px;
+    font-weight: bold;
+}
+#html {
+    color: #0a3c52;
+}
+#js {
+    color: #ad5c00;
+}
+#node {
+    color: #0b4500;
+}
+#css span:nth-child(1) {
+    color: #350030;
+}
+#css span:nth-child(2) {
+    color: #180084;
+}
+#css span:nth-child(3) {
+    color: #a10089;
+}
+
+p:nth-of-type(2n) {
+    text-shadow: 2px 2px 3px #0a3c52;
+}
+
+p:nth-of-type(2n -1) {
+    text-shadow: 2px 2px 3px #0b4500;
+}
+p:hover {
+    background-color: #ffff0080;
+}
+
+footer {
+    height: 60px;
+    background-color: #0a3c52;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 60px;
+    color: #ffffff;
+    box-shadow: 0px 0px 12px 3px #000000;
+}

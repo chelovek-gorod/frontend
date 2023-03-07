@@ -1,0 +1,251 @@
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Black.ttf") format('truetype');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Bold.ttf") format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Regular.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, Arial, sans-serif;
+    color: #ffffff;
+    background-color: #0094b6;
+    background-image: linear-gradient(45deg, #0094b6, #00d6ff);
+    /**/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+header {
+    width: 100%;
+    height: 200px;
+    background-color: #195d8c;
+    background-image: url('..//src/images/header-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: cover;
+}
+
+header .container {
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    height: 120px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: flip-logo 6s ease-in-out infinite;
+}
+@keyframes flip-logo {
+    0% {
+        transform: rotateY(0deg);
+    }
+    40% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    60% {
+        transform: rotateY(360deg);
+    }
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
+header marquee {
+    width: 50%;
+    height: 80px;
+    line-height: 80px;
+    font-size: 22px;
+}
+
+main {
+    width: 930px;
+    min-height: calc(100vh - 300px);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+main div {
+    box-sizing: border-box;
+    font-size: 32px;
+    background-color: rgba(255 255 255 .5);
+    text-align: center;
+}
+
+main h2 {
+    width: 100%;
+    color: #d6f3ff;
+    text-shadow: 0px 3px 6px black;
+}
+
+main .work-case {
+    width: 300px;
+    height: 200px;
+    margin: 0 10px 10px 0;
+    position: relative;
+    background-size: 100%;
+    background-position: center;
+    transition: background-size .6s ease-in-out;
+    box-shadow: 0px 3px 6px 3px #00335a;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+main .work-case span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    width: 100%;
+    padding: 6px;
+    background-color: #2a2948;
+
+    transition: background-color .6s ease-in-out;
+}
+
+main .work-case:hover {
+    background-size: 120%;
+}
+
+main .work-case:hover span {
+    background-color: #4541b1;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    width: 270px;
+    height: 496px;
+    background-color: #02204366;
+}
+
+nav div {
+    display: block;
+    letter-spacing: 3px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    padding: 20px 24px 12px;
+    color: #dbff00;
+    font-size: 28px;
+    font-weight: 700; 
+}
+
+nav a {
+    display: block;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 18px;
+    margin: 6px;
+    color: #dbff00;
+    font-size: 20px;
+    background-color: #0c0b217a;
+    border-radius: 6px 6px 6px 0;
+    transition: color .6s ease-in-out;
+}
+nav a:hover {
+    color: #ffffff;   
+}
+
+footer {
+    width: 100%;
+    height: 60px;
+    margin-top: 20px;
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #073a57;
+}
+
+@media (max-width: 1280px) {
+    .container {
+        max-width: 876px;
+    }
+
+    nav a {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 920px) {
+    .container {
+        max-width: 620px;
+    }
+
+    header {
+        height: 120px;
+    }
+    
+    header .logo {
+        height: 80px;
+    }
+    
+    header marquee {
+        width: 60%;
+        height: 60px;
+        line-height: 60px;
+        font-size: 18px;
+    }
+
+    nav {
+        display: none;
+    }
+}
+
+@media (max-width: 660px) {
+    .container {
+        max-width: 300px;
+    }
+
+    header {
+        height: 80px;
+    }
+    
+    header .logo {
+        height: 60px;
+    }
+    
+    header marquee {
+        width: 70%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+    }
+}

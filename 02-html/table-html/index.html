@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en_US">
+    <head>
+        <meta charset="UTF-8">
+        <!-- title and description -->
+        <title>Front-End'ер</title>
+        <meta name="description" content="Это контент о настоящем начинающем Front-End'ере">
+        <!-- viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- styles -->
+        <link rel="stylesheet" href="style/style.css" type="text/css">
+        <!-- icons -->
+        <link rel="icon" href="favicon.png"> <!--32х32-->
+        <link rel="apple-touch-icon" href="src/icons/touch-icon-iphone.png"> <!--60х60-->
+        <link rel="apple-touch-icon" sizes="76x76" href="src/icons/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="src/icons/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="src/icons/touch-icon-ipad-retina.png">
+        <!-- open graph -->
+        <meta property="og:title" content="Open graph title" />
+        <!--
+        <meta property="og:type" content="video/mp4" />
+        <meta property="og:video" content="https://site.com/video/example.mp4" />
+        -->
+        <!--
+        <meta property="og:type" content="audio/mp3" />
+        <meta property="og:audio" content="https://site.com/audio/example.mp3" />
+        -->
+        <meta property="og:type" content="article" /> <!-- if not audio and not video -->
+        <meta property="og:url" content="https://website.com/" />
+        <meta property="og:image" content="src/icons/og.png" /> <!-- OG image is 1200×630 pixels  -->
+        <meta property="og:site_name" content="website.com" /> <!-- not important -->
+        <meta property="og:description" content="Description content." /> <!-- not important -->
+        <meta property="og:locale" content="en_US" /> <!-- default: "en_US" -->
+    </head>
+    <body>
+        <h1>Пицца с салями</h1>
+
+        <img src="./src/images/pizza.jpg" width="400" height="200" alt="пицца с салями">
+
+        <table border="4" cellspacing="2" cellpadding="6">
+            <thead>
+                <tr>
+                    <th colspan="2">СОСТАВ</th>
+                    <th>ВЕС</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th align="right">тесто:</th>
+                    <th>тонкое</th>
+                    <th>120г</th>
+                </tr>
+                <tr>
+                    <th rowspan="3" valign="top" align="right">ингредиенты:</th>
+                    <th><img height="40" src="./src/images/ing-1.png" alt="салями"> салями</th>
+                    <th>60г</th>
+                </tr>
+                <tr>
+                    <th><img height="40" src="./src/images/ing-2.jpg" alt="томаты"> томаты</th>
+                    <th>85г</th>
+                </tr>
+                <tr>
+                    <th><img height="40" src="./src/images/ing-3.jpg" alt="моцарелла"> моцарелла</th>
+                    <th>105г</th>
+                </tr>
+                <tr>
+                    <th align="right">соус:</th>
+                    <th>чесночный</th>
+                    <th>30г</th>
+                </tr>
+                <tr>
+                    <th colspan="2"><b>Общий вес пиццы:</b></th>
+                    <th><b>300г</b></th>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,241 @@
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Bold.ttf") format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Regular.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    font-family: Roboto-Regular, Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+
+    background-image: linear-gradient(45deg, rgb(159 94 255), rgb(146 255 255));;
+    /**/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.container {
+    width: 900px;
+    margin: 0 auto;
+}
+
+header {
+    padding: 20px 0;
+    box-shadow: 0px 4px 10px #636972;
+    background-image: linear-gradient(180deg, rgb(0 249 255), rgb(0 105 174));
+}
+
+header img {
+    width: 200px;
+    border-radius: 50%;
+}
+
+.header-text {
+    display: inline-block;
+    padding-left: 40px;
+    width: calc(100% - 250px);
+    margin: 0;
+    vertical-align: top;
+}
+
+h1, h4 {
+    margin: 0;
+}
+
+h1 {
+    padding-top: 40px;
+    font-size: 80px;
+    color: #052145;
+    text-shadow: 6px 6px 10px #236199;
+}
+
+h4 {
+    font-size: 30px;
+    text-shadow: 6px 6px 10px #236199;
+}
+
+main {
+    padding: 30px 0;
+}
+
+.box {
+    margin: 30px 0;
+}
+
+.box-link {
+    display: block;
+    text-decoration: none;
+    color: black;
+    transition: transform 0.3s ease-in-out;
+}
+.box-link:hover {
+    transform: translateY(-3px);
+}
+.box-link img{
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease-in-out;
+}
+.box-link:hover img{
+    filter: grayscale(0) drop-shadow(0 4px 8px #00007733);
+}
+.box-link p, .box-link h2{
+    filter: invert(0.2);
+    text-shadow: none;
+    transition: filter 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+.box-link:hover p, .box-link:hover h2{
+    filter: invert(0);
+    text-shadow: 6px 6px 10px #236199;
+}
+
+.box img, .box-info {
+    max-width: 49%;
+    display: inline-block;
+}
+
+.box-info {
+    box-sizing: border-box;
+    padding: 0 0 0 20px;
+    vertical-align: top;
+}
+
+.box-info p {
+    height: 200px;
+    overflow: hidden;
+}
+
+.box img {
+    border-radius: 20px;
+}
+
+footer {
+    padding: 20px 0;
+    background-image: linear-gradient(180deg, rgb(0 249 255), rgb(0 105 174));
+}
+
+footer h2 {
+    text-align: center;
+    margin: 0;
+    color: #164c92;
+}
+
+footer h2 span{
+    color: #052145;
+}
+
+@media(max-width: 960px){
+    .container {
+        width: 600px;
+    }
+    
+    header img {
+        width: 150px;
+    }
+    
+    .header-text {
+        padding-left: 30px;
+        width: calc(100% - 200px);
+    }
+    
+    h1 {
+        padding-top: 30px;
+        font-size: 60px;
+    }
+
+    h2, h4 {
+        font-size: 20px;
+    }
+    
+    main {
+        padding: 20px 0;
+    }
+    
+    .box {
+        margin: 20px 0;
+    }
+    
+    .box-info p {
+        height: 110px;;
+    }
+    
+    footer {
+        padding: 15px 0;
+    }
+
+}
+
+@media(max-width: 680px){
+    .container {
+        width: 420px;
+    }
+    
+    header img {
+        width: 120px;
+    }
+    
+    .header-text {
+        padding-left: 20px;
+        width: calc(100% - 160px);
+    }
+    
+    h1 {
+        padding-top: 20px;
+        font-size: 45px;
+    }
+
+    h2, h4 {
+        font-size: 18px;
+    }
+    
+    .box-info p {
+        font-size: 14px;
+        height: 50px;
+    }
+
+}
+
+@media(max-width: 480px){
+    .container {
+        width: 280px;
+    }
+    
+    header img {
+        width: 80px;
+    }
+    
+    .header-text {
+        padding-left: 12px;
+        width: calc(100% - 100px);
+    }
+    
+    h1 {
+        padding-top: 16px;
+        font-size: 32px;
+    }
+
+    .box img, .box-info {
+        display: block;
+        max-width: 80%;
+        margin: 0 auto 30px;
+    }
+
+    .box-info p {
+        font-size: 16px;
+        height: 75px;
+    }
+
+}

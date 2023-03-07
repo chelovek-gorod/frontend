@@ -1,0 +1,139 @@
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Regular.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Bold.ttf") format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    /*text-align: center;*/
+    color: #ffffff;
+    background-color: #000000;
+    /**/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                not supported by any browser */
+
+    padding: 0;
+    margin: 0;
+
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.card {
+    width: 450px;
+    height: 300px;
+    position: absolute;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 225px);
+    background-image: url(../src/images/car.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    cursor: pointer;
+    transform: translateY(0);
+    filter: brightness(.9);
+    box-shadow: 0px 2px 5px 1px #006095;
+    transition: transform .9s .3s ease-in-out, filter .9s .3s ease-in-out, box-shadow .9s .3s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.5);
+    box-shadow: 0px 5px 11px 2px #006095;
+}
+.card-title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 40px;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #ff0000;
+    background-color: #0000ff24;
+    border-radius: 0 0 20px 20px;
+}
+.card-title--name {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transform: scaleY(1) translateY(0);
+    filter: opacity(1) hue-rotate(0deg);
+    transition: transform 1.2s ease-in-out, filter 1.2s ease-in-out;
+}
+.card:hover .card-title--name {
+    transform: scaleY(0) translateY(-40px);
+    filter: opacity(0) hue-rotate(120deg);
+}
+.card-title--price {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    transform: scaleY(0) translateY(40px); 
+    filter: opacity(0) hue-rotate(0deg);
+    transition: transform 1.2s ease-in-out, filter 1.2s ease-in-out;
+}
+.card:hover .card-title--price {
+    transform: scaleY(1) translateY(0);
+    filter: opacity(1) hue-rotate(120deg);
+}
+
+.ball-container {
+    position: absolute;
+    top: 150px;
+    left: 225px;
+    filter: opacity(.6) hue-rotate(0deg);
+    transform: rotate(0deg) scale(.9);
+    transition: transform 1.2s ease-in-out, filter 1.2s ease-in-out;
+}
+.card:hover .ball-container {
+    transform: rotate(180deg) scale(.5);
+    filter: opacity(.3) hue-rotate(180deg);
+}
+.ball {
+    position: absolute;
+    border-radius: 50%;
+    top: -50%;
+    left: -50%;
+    width: 30px;
+    height: 30px;
+    background-color: #0000ff;
+    box-shadow: 0 0 12px 12px #0000ff;
+}
+.ball-1 {
+    transform: rotate(275deg) translateX(200px) scale(.5);
+    filter: brightness(.8);
+}
+.ball-2 {
+    transform: rotate(350deg) translateX(240px) scale(.7);
+    filter: brightness(1);
+}
+.ball-3 {
+    transform: rotate(60deg) translateX(280px) scale(.6);
+    filter: brightness(1.2);
+}
+.ball-4 {
+    transform: rotate(150deg) translateX(320px) scale(.3);
+    filter: brightness(1.5);
+}
+.ball-5 {
+    transform: rotate(195deg) translateX(360px) scale(.4);
+    filter: brightness(1.2);
+}

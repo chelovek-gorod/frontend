@@ -1,0 +1,205 @@
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Bold.ttf") format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Regular.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    font-family: Roboto-Regular, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(45deg, lightgray, white);
+    /**/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+header {
+    padding-top: 5px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #000000;
+}
+
+header img {
+    height: 60px;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+header nav button {
+    height: 40px;
+    margin: 0 0 0 10px;
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    background-color: #0072e1;
+    cursor: pointer;
+    transition: transform .6s ease-in-out, color .6s ease-in-out, box-shadow .6s ease-in-out
+}
+header nav button:hover {
+    transform: translateY(-3px);
+    color: #ffff00;
+    box-shadow: 0 3px 5px #0072e1;
+}
+
+main .flex-container {
+    flex-wrap: wrap;
+}
+
+.box {
+    position: relative;
+    width: 280px;
+    height: 200px;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #0072e1;
+    cursor: pointer;
+    transition: transform .6s ease-in-out, box-shadow .6s ease-in-out;
+}
+.box:hover {
+    /*box-shadow: inset 0px 0px 20px 3px #000000;*/
+    box-shadow: 0 4px 12px #0072e1;
+    transform: translateY(-5px);
+}
+
+.box span {
+    display: block;
+    position: absolute;
+    bottom: -6px;
+    padding-bottom: 6px;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #000000;
+    transition: transform .6s ease-in-out, color .6s ease-in-out;
+}
+.box:hover span {
+    transform: translateY(-6px);
+    color: #ffff00;
+}
+
+footer {
+    padding-bottom: 5px;
+    background-color: #ffffff;
+    border-top: 2px solid #000000;
+}
+
+.footer-box {
+    width: 30%;
+}
+
+.footer-box h3 {
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.footer-box p {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+@media (max-width: 1024px) {
+
+    .flex-container {
+        max-width: 600px;
+    }
+
+    header nav button {
+        display: none;
+    }
+
+    header nav::before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        right: 0;
+        height: 26px;
+        width: 50px;
+        border-top: 4px solid #0072e1;
+        border-bottom: 4px solid #0072e1;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    header nav::after {
+        content: "";
+        position: absolute;
+        top: 28px;
+        right: 0;
+        width: 50px;
+        border-top: 4px solid #0072e1;
+        cursor: pointer;
+    }
+}
+
+/*
+@media (max-width: 640px) {
+    .flex-container {
+        max-width: 280px;
+    }
+
+    footer .flex-container {
+        flex-direction: column;
+    }
+
+    .footer-box {
+        width: auto;
+    }
+}
+*/
+
+@media (max-width: 640px) {
+    .flex-container {
+        max-width: calc(100% - 50px);
+    }
+
+    main .flex-container {
+        justify-content: center;
+    }
+
+    .box {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    footer .flex-container {
+        flex-direction: column;
+    }
+
+    .footer-box {
+        width: auto;
+    }
+}

@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("../src/fonts/Roboto-Bold.ttf") format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("../src/fonts/Roboto-Regular.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Roboto-Italic";
+    src: url("../src/fonts/Roboto-Italic.ttf") format('truetype');
+    font-style: italic;
+    font-weight: normal;
+}
+
+body {
+    font-family: "Roboto-Regular", Arial, sans-serif;
+    /**/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                not supported by any browser */
+}
+
+h1 {
+    font-family: "Roboto-Bold";
+    font-size: 32px;
+}
+
+a {
+    font-family: "Roboto-Regular";
+    font-size: 18px;
+}
+
+h2 {
+    font-family: "Roboto-Bold";
+    font-size: 24px;
+}
+
+table {
+    font-family: "Roboto-Italic";
+    font-size: 20px;
+}

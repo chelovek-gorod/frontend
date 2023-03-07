@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en_US">
+    <head>
+        <meta charset="UTF-8">
+        <!-- title and description -->
+        <title>Title</title>
+        <meta name="description" content="Description content.">
+        <!-- viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- styles -->
+        <link rel="stylesheet" href="./styles/style.css" type="text/css">
+        <!-- icons -->
+        <link rel="icon" href="favicon.png"> <!--32х32-->
+        <link rel="apple-touch-icon" href="./src/icons/touch-icon-iphone.png"> <!--60х60-->
+        <link rel="apple-touch-icon" sizes="76x76" href="./src/icons/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="./src/icons/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="./src/icons/touch-icon-ipad-retina.png">
+        <!-- open graph -->
+        <meta property="og:title" content="Open graph title" />
+        <!--
+        <meta property="og:type" content="./src/video/mp4" />
+        <meta property="og:video" content="https://site.com/video/example.mp4" />
+        -->
+        <!--
+        <meta property="og:type" content="./src/audio/mp3" />
+        <meta property="og:audio" content="https://site.com/audio/example.mp3" />
+        -->
+        <meta property="og:type" content="article" /> <!-- if not audio and not video -->
+        <meta property="og:url" content="https://website.com/" />
+        <meta property="og:image" content="./src/icons/og.png" /> <!-- OG image is 1200×630 pixels  -->
+        <meta property="og:site_name" content="website.com" /> <!-- not important -->
+        <meta property="og:description" content="Description content." /> <!-- not important -->
+        <meta property="og:locale" content="en_US" /> <!-- default: "en_US" -->
+    </head>
+    <body>
+        <h1>HTML-цвета</h1>
+        <table border="2" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        Имя цвета<br>
+                        <span>(зарезервировано для HTML)</span>
+                    </th>
+                    <th>
+                        RGB<br>
+                        <span>(Поканальная от 0 до 255)</span>
+                    </th>
+                    <th>
+                        HEX<br>
+                        <span>(Шестнадцатеричная форма RGB)</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="color: black; background-color: Lime;">
+                    <td>Lime</td><td>rgb(0, 255, 0)</td><td>#00FF00</td>
+                </tr>
+                <tr style="color: black; background-color: Yellow;">
+                    <td>Yellow</td><td>rgb(255, 255, 0)</td><td>#FFFF00</td>
+                </tr>
+                <tr style="color: white; background-color: Black;">
+                    <td>Black</td><td>rgb(0, 0, 0)</td><td>#000000</td>
+                </tr>
+                <tr style="color: black; background-color: white;">
+                    <td>White</td><td>rgb(255, 255, 255)</td><td>#FFFFFF</td>
+                </tr>
+                <tr style="color: black; background-color: Crimson;">
+                    <td>Crimson</td><td>rgb(220, 20, 60)</td><td>#DC143C</td>
+                </tr>
+                <tr style="color: white; background-color: DarkRed;">
+                    <td>DarkRed</td><td>rgb(139, 0, 0)</td><td>#8B0000</td>
+                </tr>
+                <tr style="color: black; background-color: HotPink;">
+                    <td>HotPink</td><td>rgb(255, 105, 180)</td><td>#FF69B4</td>
+                </tr>
+                <tr style="color: black; background-color: Gold;">
+                    <td>Gold</td><td>rgb(255, 215, 0)</td><td>#FFD700</td>
+                </tr>
+                <tr style="color: black; background-color: Fuchsia;">
+                    <td>Fuchsia</td><td>rgb(255, 0, 255)</td><td>#FF00FF</td>
+                </tr>
+                <tr style="color: white; background-color: Purple;">
+                    <td>Purple</td><td>rgb(128, 0, 128)</td><td>#800080</td>
+                </tr>
+                <tr style="color: black; background-color: Aqua;">
+                    <td>BAqua</td><td>rgb(0, 255, 255)</td><td>#00FFFF</td>
+                </tr>
+                <tr style="color: black; background-color: Teal;">
+                    <td>Teal</td><td>rgb(0, 128, 128)</td><td>#008080</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="text-align: right; background-color: #feeaa080; text-decoration: line-through;">
+            When sizing your text, it is usually a good idea to set the base font-size of the document to 10 px,
+            so that then the maths is a lot easier to work out — required (r)em values are then the pixel font
+            size divided by 10, not 16. After doing that, you can easily size the different types of text in your
+            document to what you want. It is a good idea to list all your font-size rulesets in a designated area
+            in your stylesheet, so they are easy to find.
+        </p>
+        <p style="text-align: center; text-transform: lowercase; background-color: rgba(0, 0, 255, 0.5);">
+            When sizing your text, it is usually a good idea to set the base font-size of the document to 10 px,
+            so that then the maths is a lot easier to work out — required (r)em values are then the pixel font
+            size divided by 10, not 16. After doing that, you can easily size the different types of text in your
+            document to what you want. It is a good idea to list all your font-size rulesets in a designated area
+            in your stylesheet, so they are easy to find.
+        </p>
+        <p style="text-transform: uppercase; text-shadow: 2px 2px 5px #ff0000;">
+            When sizing your text, it is usually a good idea to set the base font-size of the document to 10 px,
+            so that then the maths is a lot easier to work out — required (r)em values are then the pixel font
+            size divided by 10, not 16. After doing that, you can easily size the different types of text in your
+            document to what you want. It is a good idea to list all your font-size rulesets in a designated area
+            in your stylesheet, so they are easy to find.
+        </p>
+    </body>
+</html>

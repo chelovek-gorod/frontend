@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en_US">
+    <head>
+        <meta charset="UTF-8">
+        <!-- title and description -->
+        <title>HTML5</title>
+        <meta name="description" content="Введение в HTML5">
+        <!-- viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <!-- icons -->
+        <link rel="icon" href="favicon.png"> <!--32х32-->
+        <link rel="apple-touch-icon" href="src/icons/touch-icon-iphone.png"> <!--60х60-->
+        <link rel="apple-touch-icon" sizes="76x76" href="src/icons/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="src/icons/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="src/icons/touch-icon-ipad-retina.png">
+    </head>
+    <body>
+        <h1>Анкета разработчика</h1>
+        <form>
+            <label for="name">Введите имя:</label><br>
+            <input id="name" type="text" placeholder="Иван Иванов"><br>
+            <label for="age">Введите возраст:</label><br>
+            <input id="age" type="number" value="12" min="12" max="99" step="1"><br>
+            <label for="pass">Введите пароль:</label><br>
+            <input id="pass" type="password"><br>
+            <label for="date">Введите дату рождения:</label><br>
+            <input id="date" type="date"><br>
+            <label for="languages">Выберите языки, которыми владеете:</label><br>
+            <select id="languages" multiple>
+                <option>HTML</option>
+                <option>CSS</option>
+                <option>JavaScript</option>
+                <option>PHP</option>
+                <option>Python</option>
+                <option>Java</option>
+                <option>Ruby</option>
+                <option>C#</option>
+                <option>C++</option>
+                <option>C</option>
+            </select><br>
+            <input id="stack-fe" type="radio" name="stack" checked>
+            <label for="stack-fe">Front-end</label><br>
+            <input id="stack-be" type="radio" name="stack">
+            <label for="stack-be">Back-end</label><br>
+            <input id="stack-fs" type="radio" name="stack">
+            <label for="stack-fs">Full-stack</label><br>
+            <input type="checkbox" id="agreement">
+            <label for="agreement">согласие на обработку введенных в форму данных</label><br>
+            <label for="about">Дополнительные сведения:</label><br>
+            <textarea id="about"></textarea><br>
+            <input type="reset"><input type="button" value="Отправить">
+        </form>
+        <h2>Мои предыдущие проекты</h2>
+        <ol>
+            <li><a href="">Основы HTML</a></li>
+            <li><a href="">Ссылки</a></li>
+            <li><a href="">HTML-таблица</a></li>
+        </ol>
+    </body>
+</html>
+
+
+
+
