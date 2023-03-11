@@ -17,6 +17,9 @@ let winner;
 // ускорение автомобиля с шансам в 30% до 0,01 (пиксель за шаг)
 const getAcceleration = () => (Math.random() < 0.7) ? 0 : 0.01;
 
+// озвучивание текста
+const speak = (text) => speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+
 // добавление красного автомобиля на стартовую позицию
 const carRedDiv = document.createElement('img');
 carRedDiv.src = './src/images/car_red.png';
@@ -121,13 +124,19 @@ document.body.onclick = function() {
         carBlue.dist = start;
         carYellow.speed = 0;
         carYellow.dist = start;
-        info.innerHTML =                   '-=3=-'       ;
-        setTimeout( () => info.innerHTML = ' -2- ', 1000);
-        setTimeout( () => info.innerHTML = '  1  ', 2000);
+        speak('Приготовиться!');
+        info.innerHTML = 'Приготовиться!';
+        speak('3');
+        setTimeout( () => info.innerHTML = '-=3=-', 2500);
+        setTimeout( () => speak('2'), 0);
+        setTimeout( () => info.innerHTML = '-2-', 4000);
+        setTimeout( () => speak('1'), 0);
+        setTimeout( () => info.innerHTML = '1', 5500);
+        setTimeout( () => speak('СТАРТ'), 0);
         setTimeout( () => {
-            info.innerHTML =               'СТАРТ'       ; 
+            info.innerHTML =                  'СТАРТ';
             startRice();
-        }, 3000);
+        }, 7000);
     }
 }
 
@@ -144,6 +153,7 @@ function startRice() {
                 case carYellow.dist : winner = carYellow.name; break;
             }
             info.innerHTML = `Победитель - <b>${winner}<b>!`;
+            speak(`Победитель - ${winner}!`);
             winner = undefined;
             isStartRice = false;
         } else {
