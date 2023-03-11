@@ -668,13 +668,19 @@ footer .toTopButton:hover {
         max-width: 280px;
         width: 60%;
         padding: 20px;
-        background-color: #000000;
-        border: solid 2px #ffffff;
+        background-color: #ffffff99;
+        border: solid 2px #000000;
         border-radius: 10px;
     }
     header nav .main-menu li {
         display: block;
-        margin: 24px;
+        margin: 12px;
+        background-color: #ffffff;
+        border: 2px solid #ba8500;
+        border-radius: 12px;
+    }
+    header nav .main-menu li a{
+        font-weight: 700;
     }
     header #mobileMenu {
         display: block;
