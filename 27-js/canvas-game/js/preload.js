@@ -62,9 +62,6 @@ function updateLoadingProgress() {
     if (uploadSize < 1) loadingDone();
 }
 
-const SOUNDS_ARR = [];
-const IMAGES_ARR = [];
-
 IMAGES_UPLOAD_ARR.forEach( data => uploadImage(data) );
 SOUNDS_UPLOAD_ARR.forEach( data => uploadSound(data) );
 
