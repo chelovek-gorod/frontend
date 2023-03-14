@@ -35,37 +35,23 @@ const IMAGES_UPLOAD_ARR = [
 
 let uploadSize = SOUNDS_UPLOAD_ARR.length + IMAGES_UPLOAD_ARR.length;
 let loadingStep = 100 / uploadSize;
-
 let loadingProgress = 0;
 
-class GameSound {
-    constructor (sound_name) {
-        this.name = sound_name;
-        this.audio = new Audio();
-        this.audio.src = SOUNDS_PATH + sound_name;
-        this.isLoaded = false;
-        this.audio.oncanplaythrough = () => {
-            this.isLoaded = true;
-            SOUNDS_ARR.push(this);
-            updateLoadingProgress();
-        };
-    }
+const SE = {/* sound effects */};
+function uploadSound(sound_name) {
+    SE[sound_name] = new Audio();
+    SE[sound_name].src = SOUNDS_PATH + sound_name;
+    SE[sound_name].oncanplaythrough = (event) => {
+        event.target.oncanplaythrough = null;
+        updateLoadingProgress();
+    };
 }
 
-class GameImage {
-    constructor(image_name) {
-        this.name = image_name;
-        this.img = new Image();
-        this.img.src = IMAGES_PATH + image_name;
-        this.isLoaded = false;
-        this.img.onload = () => {
-            this.isLoaded = true;
-            this.width = this.img.width;
-            this.height = this.img.height;
-            IMAGES_ARR.push(this);
-            updateLoadingProgress();
-        };
-    }
+const IMG = {/* game images */};
+function uploadImage(image_name) {
+    IMG[image_name] = new Image();
+    IMG[image_name].src = IMAGES_PATH + image_name;
+    IMG[image_name].onload = () => updateLoadingProgress();
 }
 
 function updateLoadingProgress() {
@@ -79,8 +65,8 @@ function updateLoadingProgress() {
 const SOUNDS_ARR = [];
 const IMAGES_ARR = [];
 
-IMAGES_UPLOAD_ARR.forEach( data => new GameImage(data) );
-SOUNDS_UPLOAD_ARR.forEach( data => new GameSound(data) );
+IMAGES_UPLOAD_ARR.forEach( data => uploadImage(data) );
+SOUNDS_UPLOAD_ARR.forEach( data => uploadSound(data) );
 
 const loadingStatusBar = document.createElement('div');
 loadingStatusBar.id = 'loadingStatusBar';
@@ -102,6 +88,9 @@ function loadingDone() {
     const loadingReadyButton = document.createElement('button');
     loadingReadyButton.id = 'loadingReadyButton';
     loadingReadyButton.innerText = 'START';
-    loadingReadyButton.onclick = () => { loadingReadyButton.remove(); userPushStart(); };
+    loadingReadyButton.onclick = () => {
+        loadingReadyButton.remove();
+        userPushStart();
+    };
     document.body.prepend(loadingReadyButton);
 }
