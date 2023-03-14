@@ -7,15 +7,14 @@
 
 class Sprite {
     constructor(imageName, x, y) {
-        this.sprite = IMAGES_ARR.find(image => image.name === imageName);
+        this.img = IMG[imageName];
         this.x = x;
         this.y = y;
-        this.img = this.sprite.img;
         this.fx = 0; // координата x текущего кадра
         this.fy = 0; // координата y текущего кадра
         this.fn = 1; // количество кадров
-        this.fw = this.sprite.width;
-        this.fh = this.sprite.height;
+        this.fw = this.img.width;
+        this.fh = this.img.height;
         this.isExist = true;
     }
 
@@ -43,8 +42,8 @@ class Brick extends Sprite {
 
     getSpriteSheetArr( frameWidth, frameHeight ) {
         let spriteSheetArr = [];
-        for( let yy = 0; yy < this.sprite.height; yy += frameHeight) {
-            for( let xx = 0; xx < this.sprite.width; xx += frameWidth) {
+        for( let yy = 0; yy < this.img.height; yy += frameHeight) {
+            for( let xx = 0; xx < this.img.width; xx += frameWidth) {
                 spriteSheetArr.push( {x: xx, y: yy} );
             }
         }
@@ -52,7 +51,8 @@ class Brick extends Sprite {
     }
 
     getHit(power) {
-        playSeGame('se_brick.mp3');
+        SE['se_brick.mp3'].currentTime = 0;
+        SE['se_brick.mp3'].play();
         this.hp -= power;
         if (this.hp < 1) this.isExist = false;
         else {
@@ -95,7 +95,7 @@ class Platform extends Sprite {
     constructor(imageName, x, y) {
         super(imageName, x, y);
         this.speed = 0.4;
-        this.hw = Math.floor(this.sprite.width / 2);
+        this.hw = Math.floor(this.img.width / 2);
     }
 
     update(dt) {
@@ -134,8 +134,8 @@ class Ball extends Sprite {
         this.direction = (135 + Math.random() * 90) * (Math.PI / 180);
         this.ricochetW = 180 * (Math.PI / 180); // угол рикошета от горизонтали
         this.ricochetH = 360 * (Math.PI / 180); // угол рикошета от вертикали
-        this.r = Math.floor(this.sprite.width / 2); // радиус
-        this.d = this.sprite.width; // диаметр
+        this.r = Math.floor(this.img.width / 2); // радиус
+        this.d = this.img.width; // диаметр
     }
 
     update(dt) {
@@ -146,40 +146,42 @@ class Ball extends Sprite {
         if (this.y <= 0) { // проверка столкновения с верхней границей canvas
             this.direction = this.ricochetW - this.direction;
             this.y = 0;
-            playSeGame('se_platform.mp3');
+            SE['se_platform.mp3'].play();
         }
         if (this.x <= 0 || this.x + this.d >= vw) { // проверка столкновения с боковыми границами canvas
             this.direction = this.ricochetH - this.direction;
             this.x = (this.x < 0) ? 0 : vw - this.d;
-            playSeGame('se_platform.mp3');
+            SE['se_platform.mp3'].play();
         }
         if (this.y >= vh) { // проверка столкновения с нижней границей canvas
             this.isExist = false;
-            playSeGame('se_start.mp3');
+            SE['se_start.mp3'].play();
         }
 
         // проверка столкновения с блоками
-        bricksArr.forEach( b => {
-            let r = this.testCollied( b );
-            if (r) {
-                if (b.isBonus) {
+        bricksArr.forEach( block => {
+            let ricochet = this.testCollied( block );
+            if (ricochet) {
+                if (block.isBonus) {
                     let bonusesList = ['bonus_balls.png', 'bonus_slow.png', 'bonus_speed.png', 'bonus_power.png',];
                     let bonusImageIndex = Math.floor(Math.random() * bonusesList.length);
                     let bonusImage = bonusesList[ bonusImageIndex ];
-                    bonusesArr.push( new Bonus(bonusImage, b.x, b.y) );
-                    playSeBonus('se_bonus.mp3');
+                    bonusesArr.push( new Bonus(bonusImage, block.x, block.y) );
+                    SE['se_bonus.mp3'].play();
                 }
-                b.getHit(this.power);
-                this.direction = r - this.direction;
+                block.getHit(this.power);
+                this.direction = ricochet - this.direction;
             }
         });
 
         // проверка столкновения с платформой
         if (this.testCollied(platform)) {
-            playSeGame('se_platform.mp3');
-            let k = 1 + ((this.x + this.r) - (platform.x + platform.hw)) / (platform.fw * 2);
+            SE['se_platform.mp3'].play();
+            // угловой коэффициент рикошета (изменяется при удалении от центра платформы)
+            // добавляя от -30 до 30 градусов (-0,5...0,5 радиан) к углу рикошета мяча
+            let k = ( (this.x + this.d) - (platform.x + platform.hw) ) / (platform.img.width * 2);
             this.y = platform.y - platform.fh;
-            this.direction = this.ricochetW / k - this.direction;
+            this.direction = this.ricochetW - this.direction - k;
         }
 
         this.draw();
@@ -209,10 +211,11 @@ class Ball extends Sprite {
 
 class Bonus extends Sprite {
     constructor(imageName, x, y) {
-        super(imageName, x - 32, y - 48);
+        super(imageName, x, y - 16);
+        this.name = imageName;
         this.speed = -0.2;
         this.acc = 0.0025;
-        this.side = this.sprite.width;
+        this.side = this.img.width;
     }
 
     update(dt) {
@@ -224,27 +227,27 @@ class Bonus extends Sprite {
         }
 
         if (this.x + this.side >= platform.x
-        && this.x <= platform.x + platform.sprite.width
+        && this.x <= platform.x + platform.img.width
         && this.y + this.side >= platform.y
-        && this.y <= platform.y + platform.sprite.height) {
-            switch (this.sprite.name) {
+        && this.y <= platform.y + platform.img.height) {
+            switch (this.name) {
                 case 'bonus_balls.png' :
                     ballsArr.push( new Ball('ball.png', ballsArr[0].x, ballsArr[0].y) );
                     ballsArr.push( new Ball('ball.png', ballsArr[0].x, ballsArr[0].y) );
-                    playSeBonus('se_bonus_balls.mp3');
+                    SE['se_bonus_balls.mp3'].play();
                     break;
                 case 'bonus_slow.png' :
                     ballsArr.forEach( ball => ball.speed = 0.2 );
-                    playSeBonus('se_bonus_slow.mp3');
+                    SE['se_bonus_slow.mp3'].play();
                     break;
                 case 'bonus_speed.png' :
                     platform.speed += 0.1;
-                    playSeBonus('se_bonus_speed.mp3');
+                    SE['se_bonus_speed.mp3'].play();
                     break;
                 case 'bonus_power.png':
                     ballsPower += 1;
                     ballsArr.forEach( ball => ball.power = ballsPower );
-                    playSeBonus('se_bonus_power.mp3');
+                    SE['se_bonus_power.mp3'].play();
             }
             this.isExist = false;
         }
@@ -256,8 +259,8 @@ class Bonus extends Sprite {
 class Background extends Sprite {
     constructor(imageName, x, y) {
         super(imageName, x, y);
-        this.dx = -(this.sprite.width - vw) / vw
-        this.dy = -(this.sprite.height - vh) / vh
+        this.dx = -(this.img.width - vw) / vw
+        this.dy = -(this.img.height - vh) / vh
     }
 
     update() {
