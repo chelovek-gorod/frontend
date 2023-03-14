@@ -16,19 +16,17 @@ ctx.fillStyle = '#000000';
 ctx.fillRect(0, 0, vw, vh);
 document.body.prepend(canvas);
 
-/*
-const SOUNDS_ARR []
-const IMAGES_ARR []
-userPushStart ()
-*/
+/******************************************
+ * 
+ *  ОТСЛЕЖИВАНИЕ ПОЛОЖЕНИЯ КУРСОРА МЫШИ
+ */
 
-function userPushStart() {
-    playSeGame('se_start.mp3');
-    playBgMusic();
-    fillCanvas();
-    previousTimeStamp = performance.now();
-    requestAnimationFrame( animation );
-}
+ let mouseX = canvas.width / 2;
+
+ document.addEventListener('mousemove', function(event) {
+    let canvasRect = canvas.getBoundingClientRect();
+    mouseX = (event.clientX - canvasRect.left) / (canvasRect.right - canvasRect.left) * canvas.width;
+ }, false);
 
 /****************************
  * 
@@ -36,8 +34,7 @@ function userPushStart() {
  */
 
 const BG_MUSIC = new Audio();
-const SE_SOUND = new Audio();
-const SE_BONUS = new Audio();
+
 // массив с названием фоновых музык игры
 const bgMusicsArr = [
     'bgm_2.mp3',
@@ -55,16 +52,6 @@ function playBgMusic() {
     if (bgMusicIndex === bgMusicsArr.length) bgMusicIndex = 0;
     // отслеживать окончания музыки, после чего вызываьб функцию "playBgMusic()" повторно
     BG_MUSIC.addEventListener('ended', playBgMusic);
-}
-
-function playSeGame(sound_name) {
-    SE_SOUND.src = SOUNDS_PATH + sound_name;
-    SE_SOUND.play(); // включить выбранный звук
-}
-
-function playSeBonus(sound_name) {
-    SE_BONUS.src = SOUNDS_PATH + sound_name;
-    SE_BONUS.play(); // включить выбранный звук
 }
 
 /*************
@@ -133,19 +120,18 @@ function fillCanvas() {
     background = new Background('bg.jpg', 0, 0);
 }
 
-/******************************************
+/*****************
  * 
- *  ОТСЛЕЖИВАНИЕ ПОЛОЖЕНИЯ КУРСОРА МЫШИ
+ *  ЗАПУСК ИГРЫ
  */
 
-let mouseX = canvas.width / 2;
-let mouseY = canvas.height / 2;
-
-document.addEventListener('mousemove', function(event) {
-    let rect = canvas.getBoundingClientRect();
-    mouseX = (event.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
-    mouseY = (event.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
-}, false);
+function userPushStart() {
+    SE['se_start.mp3'].play();
+    playBgMusic();
+    fillCanvas();
+    previousTimeStamp = performance.now();
+    requestAnimationFrame( animation );
+}
 
 /**************
  * 
@@ -173,14 +159,17 @@ function animation(timeStamp) {
 
     if (isGamePlay) {
         if (bricksArr.length === 0) {
+            bonusesArr = [];
+            ballsArr = [];
             isGamePlay = false;
-            BG_MUSIC.src = SOUNDS_PATH + 'se_win.mp3';
-            BG_MUSIC.play();
+            BG_MUSIC.pause();
+            SE['se_win.mp3'].play();
         }
         else if (ballsArr.length === 0) {
+            bonusesArr = [];
             isGamePlay = false;
-            BG_MUSIC.src = SOUNDS_PATH + 'se_lose.mp3';
-            BG_MUSIC.play();
+            BG_MUSIC.pause();
+            SE['se_lose.mp3'].play();
         }
     }
 
