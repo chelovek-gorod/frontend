@@ -32,10 +32,12 @@ class Sprite {
 class Brick extends Sprite {
     constructor(imageName, x, y, frameWidth, frameHeight, hp) {
         super(imageName, x, y);
+        this.sx = this.x + frameWidth;
+        this.sy = this.y + frameHeight;
         this.spriteSheetArr = this.getSpriteSheetArr( frameWidth, frameHeight );
         this.hp = hp;
-        this.fx = this.spriteSheetArr[this.hp - 1].x;
-        this.fy = this.spriteSheetArr[this.hp - 1].y;
+        this.fx = this.spriteSheetArr[this.hp].x;
+        this.fy = this.spriteSheetArr[this.hp].y;
         this.fw = frameWidth;
         this.fh = frameHeight;
     }
@@ -54,10 +56,10 @@ class Brick extends Sprite {
         SE['se_brick.mp3'].currentTime = 0;
         SE['se_brick.mp3'].play();
         this.hp -= power;
-        if (this.hp < 1) this.isExist = false;
+        if (this.hp < 0) this.isExist = false;
         else {
-            this.fx = this.spriteSheetArr[this.hp - 1].x;
-            this.fy = this.spriteSheetArr[this.hp - 1].y;
+            this.fx = this.spriteSheetArr[this.hp].x;
+            this.fy = this.spriteSheetArr[this.hp].y;
         }
     }
 
@@ -69,23 +71,22 @@ class Brick extends Sprite {
 class BonusBrick extends Brick {
     constructor(imageName, x, y, frameWidth, frameHeight, hp) {
         super(imageName, x, y, frameWidth, frameHeight, hp);
-        this.fc = 0;
         this.isBonus = true;
-        this.fn = this.spriteSheetArr.length;
-        this.ft = 1000 / 60; // время ожидания следующего кадра анимации
-        this.fd = this.ft; // время включения следующего кадра анимации
-        this.fw = frameWidth;
-        this.fh = frameHeight;
+        this.frame  = 0; // номер текущего кадра анимации
+        this.frames = this.spriteSheetArr.length;
+        this.frameTimeout = 1000 / 30; // время ожидания следующего кадра анимации
+        this.nextFrameTime = this.frameTimeout; // время следующего кадра анимации
+        
     }
 
     update(dt) {
-        this.fd -= dt; // обновляем время включения следующего кадра анимации
-        if (this.fd < 0) {
-            this.fd += this.ft;
-            this.fc++;
-            if (this.fc === this.fn) this.fc = 0;
-            this.fx = this.spriteSheetArr[this.fc].x;
-            this.fy = this.spriteSheetArr[this.fc].y;
+        this.nextFrameTime -= dt; // обновляем время включения следующего кадра
+        if (this.nextFrameTime <= 0) {
+            this.nextFrameTime += this.frameTimeout;
+            this.frame++;
+            if (this.frame === this.spriteSheetArr.length) this.frame = 0;
+            this.fx = this.spriteSheetArr[this.frame].x;
+            this.fy = this.spriteSheetArr[this.frame].y;
         }
         this.draw();
     }
@@ -94,119 +95,153 @@ class BonusBrick extends Brick {
 class Platform extends Sprite {
     constructor(imageName, x, y) {
         super(imageName, x, y);
+        this.sx = this.x + this.img.width;
+        this.sy = this.y + this.img.height;
         this.speed = 0.4;
         this.hw = Math.floor(this.img.width / 2);
     }
 
     update(dt) {
+        // проверяяем что бы платформа не вышла за пределы canvas
         if (mouseX > vw) mouseX = vw;
         if (mouseX < 0) mouseX = 0;
-        if (mouseX > this.x + this.hw) this.x += this.speed * dt;
-        if (mouseX < this.x + this.hw) this.x -= this.speed * dt;
+
+        // перемещение платформы вправо
+        if (mouseX > this.x + this.hw) {
+            this.x += this.speed * dt;
+            this.sx = this.x + this.img.width;
+        }
+        // перемещение платформы влево
+        if (mouseX < this.x + this.hw) {
+            this.x -= this.speed * dt;
+            this.sx = this.x + this.img.width;
+        }
         this.draw();
     }
 }
 
-`
-sin(a) = h/d       
-cos(a) = w/d
-
-(dx, dy)                
-   |\
-  h| \ d
-   |__\ 
-    w  (x, y)
-
-dx(w) = cos(a) * d
-dy(h) = sin(a) * d
-`;
-
 class Ball extends Sprite {
     constructor(imageName, x, y) {
         super(imageName, x, y);
+        this.d  = this.img.width; // диаметр
+        this.r  = Math.floor(this.d / 2); // радиус
+        this.sx = this.x + this.d;
+        this.sy = this.y + this.d;
         this.speed = 0.3;
-        this.acc = 0.002;
+        this.acc = 1.002;
         this.power = ballsPower;
-        // 0   - направление движения вниз
-        // 90  - направление движения вправо
-        // 180 - направление движения вверх
-        // 270 - направление движения влево
-        this.direction = (135 + Math.random() * 90) * (Math.PI / 180);
-        this.ricochetW = 180 * (Math.PI / 180); // угол рикошета от горизонтали
-        this.ricochetH = 360 * (Math.PI / 180); // угол рикошета от вертикали
-        this.r = Math.floor(this.img.width / 2); // радиус
-        this.d = this.img.width; // диаметр
+        // генерируем случайное направление от 45 до 135 градусов
+        this.dx = -(this.speed / 2) + Math.random() * this.speed;
+        this.dy = -Math.sqrt(this.speed ** 2 - this.dx ** 2);
+    }
+
+    getBounceX() {
+        // отражение по оси X
+        this.dy *= this.acc;
+        this.dx *= -this.acc;
+    }
+
+    getBounceY() {
+        // отражение по оси Y
+        this.dy *= -this.acc;
+        this.dx *= this.acc;
+    }
+
+    checkCollision( x1, x2, y1, y2 ) {
+        // проверка столкновения с блокам по координатам
+        if (this.sx > x1 && this.x < x2 && this.sy > y1 && this.y < y2) {
+            let intersectionLeft = this.x < x1 ? x1 - this.x : 0;    // o -> |__|
+            let intersectionRight = this.sx > x2 ? this.sx - x2 : 0; // |__| <- o
+            let intersectionTop = this.y < y1 ? y1 - this.y : 0;
+            let intersectionBottom = this.sy > y2 ? this.sy - y2 : 0;
+
+            let intersectionMax = Math.max(intersectionLeft, intersectionRight, intersectionTop, intersectionBottom);
+
+            if (intersectionMax === intersectionLeft) {
+                this.getBounceX();
+                this.x = x1 - this.d;
+            } else if (intersectionMax === intersectionRight) {
+                this.getBounceX();
+                this.x = x2;
+            } else if (intersectionMax === intersectionTop) {
+                this.getBounceY();
+                this.y = y1 - this.d;
+            } else {
+                this.getBounceY();
+                this.y = y2;
+            }
+            return true;
+        }
+        return false;
     }
 
     update(dt) {
         // перемещение
-        this.x += Math.sin(this.direction) * this.speed * dt;
-        this.y += Math.cos(this.direction) * this.speed * dt;
+        this.x += this.dx * dt;
+        this.y += this.dy * dt;
 
-        if (this.y <= 0) { // проверка столкновения с верхней границей canvas
-            this.direction = this.ricochetW - this.direction;
+        // обновление крайних координат
+        this.sx = this.x + this.d;
+        this.sy = this.y + this.d;
+
+        if (this.y < 0) { // проверка столкновения с верхней границей canvas
             this.y = 0;
+            this.getBounceY();
             SE['se_platform.mp3'].play();
         }
-        if (this.x <= 0 || this.x + this.d >= vw) { // проверка столкновения с боковыми границами canvas
-            this.direction = this.ricochetH - this.direction;
-            this.x = (this.x < 0) ? 0 : vw - this.d;
+        if (this.x < 0 || this.sx > vw) { // проверка столкновения с боковыми границами canvas
+            this.x = this.x <= 0 ? 0 : vw - this.d;
+            this.getBounceX();
             SE['se_platform.mp3'].play();
         }
-        if (this.y >= vh) { // проверка столкновения с нижней границей canvas
+
+        if (this.y + this.r > platform.y) { // проверка столкновения с нижней границей canvas
             this.isExist = false;
             SE['se_start.mp3'].play();
         }
 
         // проверка столкновения с блоками
-        bricksArr.forEach( block => {
-            let ricochet = this.testCollied( block );
-            if (ricochet) {
-                if (block.isBonus) {
+        let isCollied = false;
+        bricksArr.forEach( brick => {
+            if (!isCollied && this.checkCollision( brick.x, brick.sx, brick.y, brick.sy )) {
+                if (brick.isBonus) {
                     let bonusesList = ['bonus_balls.png', 'bonus_slow.png', 'bonus_speed.png', 'bonus_power.png',];
                     let bonusImageIndex = Math.floor(Math.random() * bonusesList.length);
                     let bonusImage = bonusesList[ bonusImageIndex ];
-                    bonusesArr.push( new Bonus(bonusImage, block.x, block.y) );
+                    // Bonus extends Sprite (imageName, x, y)
+                    bonusesArr.push( new Bonus(bonusImage, brick.x, brick.y) );
                     SE['se_bonus.mp3'].play();
                 }
-                block.getHit(this.power);
-                this.direction = ricochet - this.direction;
+                isCollied = true;
+                brick.getHit(this.power);
             }
         });
 
         // проверка столкновения с платформой
-        if (this.testCollied(platform)) {
+        if ( this.sy > platform.y && this.sx > platform.x && this.x < platform.sx ) {
+            // отбитие мяча
+            this.y = platform.y - this.d;
+            this.getBounceY();
+
+            // определяем смещения точки столкновения от центра платформы
+            let offsetX = (this.x + this.r) - (platform.x + platform.hw);
+            let kX = Math.abs( offsetX / platform.img.width );
+            
+            // находим квадрат скорости и скорость
+            let speed2 = this.dx ** 2 + this.dy ** 2;
+
+            // рассчет смещения скорости по оси X
+            let speedX = Math.sqrt(speed2) * kX;
+            // обновление скоростей dx и dy
+            this.dx += (offsetX > 0) ? speedX : -speedX;
+            let speed2Y = Math.abs(speed2 - this.dx ** 2);
+            this.dy = -Math.sqrt(speed2Y);
+
             SE['se_platform.mp3'].play();
-            // угловой коэффициент рикошета (изменяется при удалении от центра платформы)
-            // добавляя от -30 до 30 градусов (-0,5...0,5 радиан) к углу рикошета мяча
-            let k = ( (this.x + this.d) - (platform.x + platform.hw) ) / (platform.img.width * 2);
-            this.y = platform.y - platform.fh;
-            this.direction = this.ricochetW - this.direction - k;
         }
 
         this.draw();
-    }
-
-    testCollied( block ) {
-        let cx = this.x + this.r;
-        let cy = this.y + this.r;
-
-        let xx = cx;
-        let yy = cy;
-
-        if (cx < block.x) xx = block.x
-        else if (cx > block.x + block.fw) xx = block.x + block.fw;
-
-        if (cy < block.y) yy = block.y;
-        else if (cy > block.y + block.fh) cy = block.y + block.fh;  
-
-        // определение растояния
-        let dx = cx - xx;
-        let dy = cy - yy;
-        if( Math.sqrt( (dx * dx) + (dy * dy) ) > this.r) return null;
-        this.speed += this.acc;
-        return dy < dx ? this.ricochetW : this.ricochetH;
-    }
+    }    
 }
 
 class Bonus extends Sprite {
@@ -237,7 +272,12 @@ class Bonus extends Sprite {
                     SE['se_bonus_balls.mp3'].play();
                     break;
                 case 'bonus_slow.png' :
-                    ballsArr.forEach( ball => ball.speed = 0.2 );
+                    ballsArr.forEach( ball => {
+                        let speed = Math.sqrt( ball.dx ** 2 + ball.dy ** 2 );
+                        let speedDivider = speed / ball.speed;
+                        ball.dx /= speedDivider;
+                        ball.dy /= speedDivider;
+                    });
                     SE['se_bonus_slow.mp3'].play();
                     break;
                 case 'bonus_speed.png' :
@@ -251,7 +291,6 @@ class Bonus extends Sprite {
             }
             this.isExist = false;
         }
-
         this.draw();
     }
 }
@@ -259,14 +298,22 @@ class Bonus extends Sprite {
 class Background extends Sprite {
     constructor(imageName, x, y) {
         super(imageName, x, y);
+        this.speed = 0.3;
         this.dx = -(this.img.width - vw) / vw
         this.dy = -(this.img.height - vh) / vh
     }
 
     update() {
         if (ballsArr.length > 0) {
-            this.x = ballsArr[0].x * this.dx;
-            this.y = ballsArr[0].y * this.dy;
+            if (this.x < ballsArr[0].x * this.dx + this.speed)
+                this.x += this.speed;
+            else if (this.x > ballsArr[0].x * this.dx - this.speed)
+                this.x -= this.speed;
+
+            if (this.y < ballsArr[0].y * this.dy + this.speed)
+                this.y += this.speed;
+            else if (this.y > ballsArr[0].y * this.dy - this.speed)
+                this.y -= this.speed;
         }
         ctx.drawImage(this.img, this.x, this.y);
     }
