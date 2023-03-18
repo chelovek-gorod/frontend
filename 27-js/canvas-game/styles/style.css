@@ -35,38 +35,11 @@ canvas {
     box-shadow: 0px 0px 10px 6px #0c0000;
 }
 
-#loadingStatusBar {
+#loadingStatusDiv {
     position: absolute;
-    margin-bottom: 120px;
-    box-sizing: border-box;
-    width: 204px;
-    height: 24px;
-    border: 2px solid #000000;
-    border-radius: 12px;
-    background-color: #777777;
-    overflow: hidden;
-}
-
-#loadingStatusText {
-    position: relative;
-    z-index: 1;
-    box-sizing: border-box;
-    width: 200px;
-    height: 20px;
-    text-align: center;
     font-size: 16px;
-    line-height: 20px;
-}
-
-#loadingStatusLine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 0%;
-    height: 100%;
-    border-radius: 7px;
-    background-color: #DDDDDD;
+    color: #777777;
+    margin-bottom: 120px;
 }
 
 #loadingReadyButton {
@@ -75,18 +48,17 @@ canvas {
     box-sizing: border-box;
     width: 204px;
     height: 64px;
-    line-height: 64px;
+    line-height: 56px;
     font-size: 32px;
     font-weight: bold;
     text-align: center;
-    color: #333333;
-    border: 2px solid #000000;
+    color: #ffffff;
+    border: 4px solid #ff0201;
     border-radius: 32px;
-    background-color: #777777;
+    background-color: #222222;
     cursor: pointer;
-    transition: color .6s ease-in-out, background-color .6s ease-in-out;
+    transition: background-color .3s ease-in-out;
 }
 #loadingReadyButton:hover {
-    color: #000000;
-    background-color: #aaaaaa;
+    background-color: #444444;
 }
