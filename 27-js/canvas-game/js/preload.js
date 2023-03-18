@@ -22,7 +22,11 @@ const SOUNDS_UPLOAD_ARR = [
 ];
 
 const IMAGES_UPLOAD_ARR = [
-    'bg.jpg',
+    'bg-1.jpg',
+    'bg-2.jpg',
+    'bg-3.jpg',
+    'bg-4.jpg',
+    'bg-5.jpg',
     'ball.png',
     'platform.png',
     'block-64x32-6f.png',
@@ -57,30 +61,20 @@ function uploadImage(image_name) {
 function updateLoadingProgress() {
     uploadSize--;
     loadingProgress += loadingStep;
-    loadingStatusText.innerText = 'Loading ' + loadingProgress.toFixed() + ' %';
-    loadingStatusLine.style.width = loadingProgress.toFixed() + '%';
+    loadingStatusDiv.innerHTML = `<b>Loading</b> ${loadingProgress.toFixed()} <b>%</b>`;
     if (uploadSize < 1) loadingDone();
 }
 
 IMAGES_UPLOAD_ARR.forEach( data => uploadImage(data) );
 SOUNDS_UPLOAD_ARR.forEach( data => uploadSound(data) );
 
-const loadingStatusBar = document.createElement('div');
-loadingStatusBar.id = 'loadingStatusBar';
-
-const loadingStatusText = document.createElement('div');
-loadingStatusText.id = 'loadingStatusText';
-loadingStatusText.innerText = 'Loading 0 %';
-
-const loadingStatusLine = document.createElement('div');
-loadingStatusLine.id = 'loadingStatusLine';
-
-loadingStatusBar.prepend(loadingStatusLine);
-loadingStatusBar.prepend(loadingStatusText);
-document.body.prepend(loadingStatusBar);
+const loadingStatusDiv = document.createElement('div');
+loadingStatusDiv.id = 'loadingStatusDiv';
+loadingStatusDiv.innerHTML = `<b>Loading</b> ${loadingProgress.toFixed()} <b>%</b>`;
+document.body.prepend(loadingStatusDiv);
 
 function loadingDone() {
-    loadingStatusBar.remove();
+    loadingStatusDiv.remove();
 
     const loadingReadyButton = document.createElement('button');
     loadingReadyButton.id = 'loadingReadyButton';
