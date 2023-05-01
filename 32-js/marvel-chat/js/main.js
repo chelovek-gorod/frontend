@@ -1,8 +1,8 @@
 'use strict'
 
 // CONNECTION
-// const socketURL = 'wss://cursovaya-psp-server.onrender.com';
-const socketURL = 'ws://localhost:9000';
+const socketURL = 'wss://cursovaya-psp-server.onrender.com';
+// const socketURL = 'ws://localhost:9000';
 const connectionTimeout = 6000;
 
 let connectionIs = false;
