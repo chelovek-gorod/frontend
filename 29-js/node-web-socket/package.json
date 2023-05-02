@@ -1,0 +1,14 @@
+{
+  "name": "node-web-sockets",
+  "version": "0.1.1",
+  "description": "testing web-sockets",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.13.0"
+  }
+}
