@@ -229,7 +229,7 @@ class TileSprite extends Sprite {
      * @param {number} height - высота итогового изображения в пикселях
      * @param {string} horizontalAlign - горизонтальное выравнивание ('left', 'center', 'right')
      * @param {string} verticalAlign - вертикальное выравнивание  ('top', 'center', 'bottom')
-     * @example пример создания текстового объекта: let background = new Text('tile_32x32px.jpg', 0, 0, 128, 64, 'left', 'top');
+     * @example пример создания текстового объекта: let background = new TileSprite('tile_32x32px.jpg', 0, 0, 128, 64, 'left', 'top');
      */
     constructor(tileName, x, y, width, height, horizontalAlign = 'left', verticalAlign = 'top') {
         super(createTileImage(tileName, width, height, horizontalAlign, verticalAlign), x, y);

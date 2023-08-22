@@ -73,7 +73,7 @@ function checkObjectVisibility(object) {
  * Функция поворота объекта object к объекту target, на угол turnAngle
  * @param {Objects} object - поворачиваемый объект (обязательные поля: object.x; object.y; object.imageAngle; object.direction)
  * @param {Objects} target - объект, к которому поворачиваемся (обязательные поля: target.x; target.y)
- * @param {number} turnAngle - угол поворота (в радианах)
+ * @param {number} turnAngle - угол поворота (в радианах), на который будут изменены direction (и imageAngle)
  * @param {boolean} isImageAngleEqualDirection - Нежно ли так же повернуть изображение (по умолчанию = true)
  */
 function turnObjectToTarget(object, target, turnAngle, isImageAngleEqualDirection = true) {

@@ -10,8 +10,6 @@
  * sprite = IMG["image.png"]
  */
 const IMG = {/* game images */};
-// переменная пути к изображениям
-const IMAGES_PATH = './src/images/';
 
 /**
  * Объект для хранения загруженных звуков SE = {'sound.mp3': Audio}
@@ -19,84 +17,22 @@ const IMAGES_PATH = './src/images/';
  * sound = SE["sound.mp3"]
  */
 const SE = {/* sound effects */};
-// переменная пути к звукам
-const SOUNDS_PATH = './src/sounds/';
-
-// переменная пути к JavaScript-файлам
-const SCRIPTS_PATH = './js/';
-
-// список загружаемых изображений
-const imagesToUploadArray = [
-    'space_bg_tile_1600x2760px.jpg',
-    'space_bg_alpha_tile_1440x724px.png',
-
-    'galaxy_480x420px.png',
-    'nebula_1071x1328px.png',
-    'nebula_1250x1345px.png',
-    'star_94x94px.png',
-    'star_106x106px.png',
-    'star_dust_1184x842px.png',
-    'star_dust_1316x683px.png',
-    'star_dust_1388x774px.png',
-
-    'sun_red_580x580px.png',
-    'sun_yellow_552x552px.png',
-    'planet_76x76px.png',
-    'planet_102x102px.png',
-    'planet_128x128px.png',
-    'planet_154x154px.png',
-    'planet_204x204px.png',
-    'planet_256x256px.png',
-    'space_station_598x408px.png',
-
-    'star_flash_32x32px_11frames.png',
-
-    'cursor_48x48px_16frames.png',
-
-    'player_74x100px_16frames.png',
-    'player_bullet_10x40px.png',
-
-    'explosion_64x64px_17frames.png',
-    'explosion_128x128px_20frames.png',
-    'explosion_192x192px_25frames.png',
-    'explosion_240x240px_28frames.png',
-    'explosion_256x256px_48frames.png',
-    'explosion_256x256px_72frames.png',
-
-    'enemy_bullet_10x40px.png',
-    'enemy_1_52x78px.png',
-    'enemy_2_146x62px.png',
-    'enemy_3_82x192px.png',
-    'enemy_4_100x130px.png',
-    'enemy_5_186x126px.png',
-];
-
-// список загружаемых звуков
-const soundsToUploadArray = [
-    'se_electro_shut.mp3',
-    'se_explosion_1.mp3',
-    'se_explosion_2.mp3',
-    'se_hit.mp3',
-    'se_laser_shut_1.mp3',
-    'se_laser_shut_2.mp3',
-    'se_rock.mp3',
-];
 
 // список загружаемых скриптов
 const scriptsToUploadArray = [
-    'control.js',
-    'music.js',
-    'utils.js',
-    'sprites.js',
-    'render.js',
+    './js/engine/control.js',
+    './js/engine/music.js',
+    './js/engine/utils.js',
+    './js/engine/sprites.js',
+    './js/engine/render.js',
 ];
 
 // упорядоченный список загружаемых скриптов (game.js должен загружаться самым последним)
 // загрузка запускается в указанном порядке и после загрузки скриптов из массива scriptsToUploadArray
 // так как в данных скриптах используются переменные, функции и классы из ранее загруженных скриптов
 const orderedScriptsToUploadArray = [
-    'objects.js',
-    'game.js',
+    './js/objects.js',
+    './js/game.js',
 ];
 
 // счетчик количества загруженных игровых ресурсов
@@ -106,7 +42,7 @@ let uploadStep = 0;
 // отображения состояния загрузки игровых ресурсов
 const loadingStatusDiv = document.createElement('div');
 loadingStatusDiv.id = 'loadingStatusDiv';
-loadingStatusDiv.innerHTML = 'Loaded files: ' + uploadStep + '/' + uploadSize;
+loadingStatusDiv.innerHTML = loadingText + ' ' + uploadStep + '/' + uploadSize;
 document.body.append(loadingStatusDiv);
 
 // загрузка игровых ресурсов
@@ -134,7 +70,7 @@ function uploadSound(sound_name) {
 // функция загрузки скриптов
 function uploadScript(script_name) {
     const script = document.createElement('script');
-    script.src = SCRIPTS_PATH + script_name;
+    script.src = script_name;
     document.body.append(script);
     script.onload = () => updateLoadingProgress();
 }
@@ -142,7 +78,7 @@ function uploadScript(script_name) {
 // функция обновления отображаемого состояния загрузки игровых ресурсов
 function updateLoadingProgress() {
     uploadStep++;
-    loadingStatusDiv.innerHTML = 'Загружено: ' + uploadStep + '/' + uploadSize;
+    loadingStatusDiv.innerHTML = loadingText + ' ' + uploadStep + '/' + uploadSize;
     if (uploadStep === uploadSize) loadingDone();
 }
 
@@ -151,7 +87,7 @@ function loadingDone() {
     loadingStatusDiv.remove();
     const startButton = document.createElement('button');
     startButton.id = 'startButton';
-    startButton.innerHTML = 'START';
+    startButton.innerHTML = startButtonText;
     startButton.onclick = function() {
         startButton.remove();
         orderedUploadScripts(orderedScriptsToUploadArray);
@@ -162,7 +98,7 @@ function loadingDone() {
 // функция упорядоченной загрузки скриптов
 function orderedUploadScripts(scripts) {
     const script = document.createElement('script');
-    script.src = SCRIPTS_PATH + scripts[0];
+    script.src = scripts[0];
     document.body.append(script);
     if (scripts.length > 1) script.onload = () => orderedUploadScripts(scripts.slice(1));
 }
