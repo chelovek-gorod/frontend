@@ -562,10 +562,6 @@ Object.assign(Rock.prototype,
 );
 
 class EnemySprite extends Sprite {
-    constructor(imageName, x, y, imageAngle = 0) {
-        super(imageName, x, y, imageAngle);
-    }
-
     update(dt) {
         if (this.isExist === false) return;
         this.action(dt);
